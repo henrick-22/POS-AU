@@ -328,7 +328,8 @@ namespace NEW_POS.POS
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error on On-Click", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }     
+                }
+            ///comment
    
         }
     }
