@@ -1,0 +1,69 @@
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\bin\Debug\NEW-POS.exe.config
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\bin\Debug\NEW-POS.exe
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\bin\Debug\NEW-POS.pdb
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\bin\Debug\MySql.Data.DLL
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\bin\Debug\ComponentFactory.Krypton.Toolkit.pdb
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.AssemblyReference.cache
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.SuggestedBindingRedirects.cache
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.formlogin.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Properties.Resources.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.GenerateResource.cache
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.CoreCompileInputs.cache
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.CopyComplete
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW-POS.exe
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW-POS.pdb
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\POS.formmain.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Administration_related.accounts.manageaccount.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Administration_related.accounts.addaccount.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Administration_related.accounts.updateaccount.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Products.formproducts.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Products.addproducts.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Products.updateproducts.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.category_settings.formcategory.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.POS.pointofsale.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\bin\Debug\NEW-POS.exe.config
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\bin\Debug\NEW-POS.exe
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\bin\Debug\NEW-POS.pdb
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\bin\Debug\ComponentFactory.Krypton.Toolkit.pdb
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.AssemblyReference.cache
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Administration_related.accounts.addaccount.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Administration_related.accounts.manageaccount.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Administration_related.accounts.updateaccount.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW_POS.category_settings.formcategory.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW_POS.formlogin.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\POS.formmain.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW_POS.POS.pointofsale.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Products.addproducts.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Products.formproducts.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Products.updateproducts.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Properties.Resources.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.GenerateResource.cache
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.CoreCompileInputs.cache
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.CopyComplete
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW-POS.exe
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\NEW-POS\NEW-POS\obj\Debug\NEW-POS.pdb
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.POS.quantityform.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\bin\Debug\NEW-POS.exe.config
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\bin\Debug\NEW-POS.exe
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\bin\Debug\NEW-POS.pdb
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\bin\Debug\ComponentFactory.Krypton.Toolkit.pdb
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.AssemblyReference.cache
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Administration_related.accounts.addaccount.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Administration_related.accounts.manageaccount.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Administration_related.accounts.updateaccount.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.category_settings.formcategory.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.formlogin.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\POS.formmain.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.POS.pointofsale.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.POS.quantityform.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Products.addproducts.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Products.formproducts.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Products.updateproducts.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.Properties.Resources.resources
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.GenerateResource.cache
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.CoreCompileInputs.cache
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW-POS.csproj.CopyComplete
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW-POS.exe
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW-POS.pdb
+C:\Users\Carl Andrews Tejada\Documents\Visual Studio 2019\POS-02282022-LATEST\NEW-POS\NEW-POS\obj\Debug\NEW_POS.POS.payments.resources
+C:\Users\jhore\source\repos\NEW-POS\NEW-POS\obj\Debug\NEW_POS.POS.payments.resources
