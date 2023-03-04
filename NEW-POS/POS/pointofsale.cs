@@ -13,6 +13,7 @@ using Microsoft.VisualBasic;
 using System.Text.RegularExpressions;
 using POS;
 using NEW_POS.Administration_related.accounts;
+using System.Linq.Expressions;
 
 namespace NEW_POS.POS
 {
@@ -37,6 +38,8 @@ namespace NEW_POS.POS
         MainConnection data = new MainConnection();
         formmain fm;
         private string v;
+
+        
 
         private void pointofsale_Load(object sender, EventArgs e)
         {
@@ -84,7 +87,7 @@ namespace NEW_POS.POS
                         pic.Controls.Add(pname);
                         flowLayoutPanel1.Controls.Add(pic);
 
-                        pic.Click += new EventHandler(onClick);
+                        pic.Click += new EventHandler(onClick_Select);
 
                     }
                     dr.Close();
@@ -238,7 +241,7 @@ namespace NEW_POS.POS
                     pic.Controls.Add(pname);
                     flowLayoutPanel1.Controls.Add(pic);
 
-                    pic.Click += new EventHandler(onClick);
+                    pic.Click += new EventHandler(onClick_Select);
                 }
                 dr.Close();
                 cn.Close();
@@ -268,69 +271,117 @@ namespace NEW_POS.POS
             {
                 MessageBox.Show(ex.Message, "Error on cmb Category Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            pic.Click += new EventHandler(onClick);
+            pic.Click += new EventHandler(onClick_Select);
         }
-        private void onClick(object sender, EventArgs e)
+        /*private void onClick(object sender, EventArgs e)
         {
-                try
-                {
-                    quantityform qf = new quantityform(username);
-                    qf.ShowDialog();
-                    string quantity = quantityform.quantity;
+            try
+            {
+                quantityform qf = new quantityform(username, "", "", "");
+                qf.ShowDialog();
+                string quantity = quantityform.quantity;
                 if (string.IsNullOrEmpty(quantity))
+                {
+                    quantity = quantity.Replace("0", String.Empty);
+                }
+                else
+                {
+                    String tag = ((PictureBox)sender).Tag.ToString();
+                    cn.Open();
+                    cm = new MySqlCommand("select * from products where PRODUCT_ID like '" + tag + "'", cn);
+                    dr = cm.ExecuteReader();
+                    dr.Read();
+                    if (dr.HasRows)
                     {
-                        quantity = quantity.Replace("0", String.Empty);
-                    }
-                    else
-                    {
-                        String tag = ((PictureBox)sender).Tag.ToString();
-                        cn.Open();
-                        cm = new MySqlCommand("select * from products where PRODUCT_ID like '" + tag + "'", cn);
-                        dr = cm.ExecuteReader();
-                        dr.Read();
-                        if (dr.HasRows)
-                        {
-                            int quantity1 = Convert.ToInt32(quantity);
-                            
-                            String pid = dr["PRODUCT_ID"].ToString();
+                        int quantity1 = Convert.ToInt32(quantity);
 
-                            
-                                price = quantity1 * double.Parse(dr["PRODUCT_PRICE"].ToString());
-                                count += 1;
+                        String pid = dr["PRODUCT_ID"].ToString();
 
-                                dataGridView1.Rows.Add(dr["PRODUCT_ID"].ToString(), dr["PRODUCT_NAME"].ToString(), quantity.ToString(), price.ToString());
+                        price = quantity1 * double.Parse(dr["PRODUCT_PRICE"].ToString());
+                        count += 1;
 
-                                
+                        dataGridView1.Rows.Add(dr["PRODUCT_ID"].ToString(), dr["PRODUCT_NAME"].ToString(), quantity.ToString(), price.ToString());
 
-                                
-                                
-                                lbltotal.Text = (from DataGridViewRow row in dataGridView1.Rows
-                                                 where row.Cells[0].FormattedValue.ToString() != string.Empty
-                                                 select Convert.ToInt32(row.Cells[3].FormattedValue)).Sum().ToString();
-                                txtTotalCost.Text = lbltotal.Text;
-                                //total quantity
-                                int[] qty = new int[dataGridView1.Rows.Count];
-                                qty = (from DataGridViewRow row in dataGridView1.Rows
-                                       where row.Cells[0].FormattedValue.ToString() != string.Empty
-                                       select Convert.ToInt32(row.Cells[2].FormattedValue)).ToArray();
-                                lblcount.Text = qty.Sum().ToString();
-                            }
-                            
-                        }
-                        dr.Close();
-                        cn.Close();
                         lbltotal.Text = (from DataGridViewRow row in dataGridView1.Rows
                                          where row.Cells[0].FormattedValue.ToString() != string.Empty
                                          select Convert.ToInt32(row.Cells[3].FormattedValue)).Sum().ToString();
                         txtTotalCost.Text = lbltotal.Text;
-                    
+                        //total quantity
+                        int[] qty = new int[dataGridView1.Rows.Count];
+                        qty = (from DataGridViewRow row in dataGridView1.Rows
+                               where row.Cells[0].FormattedValue.ToString() != string.Empty
+                               select Convert.ToInt32(row.Cells[2].FormattedValue)).ToArray();
+                        lblcount.Text = qty.Sum().ToString();
+                    }
+
                 }
-                catch (Exception ex)
+                dr.Close();
+                cn.Close();
+                lbltotal.Text = (from DataGridViewRow row in dataGridView1.Rows
+                                 where row.Cells[0].FormattedValue.ToString() != string.Empty
+                                 select Convert.ToInt32(row.Cells[3].FormattedValue)).Sum().ToString();
+                txtTotalCost.Text = lbltotal.Text;
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }*/
+
+        private void onClick_Select(object sender, EventArgs e)
+        {
+            try
+            {
+                //initiate string null values
+                String item_code = null;
+                String product_name = null;
+                String price = null;
+
+                /**//*steps in selecting
+                1.Get all the data of required fields that will be inserted to database
+                   Data's are: Identifier, Item_Code, Product Name, Price , Quantity will be set on the Quantity Form
+                2.Once the data was get, you need constructor to pass the data to the quantity_form *//**/
+
+                String tag = ((PictureBox)sender).Tag.ToString();
+
+                DataTable dt = data.GetData("SELECT * FROM PRODUCTS WHERE PRODUCT_ID LIKE '" + tag + "'");
+
+                if (dt.Rows.Count > 0)
                 {
-                    MessageBox.Show(ex.Message, "Error on On-Click", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    item_code = dt.Rows[0][0].ToString();
+                    product_name = dt.Rows[0][1].ToString();
+                    price = dt.Rows[0][2].ToString();
+
+                    //showing of form after getting the value from search query on database table product
+                    quantityform qf = new quantityform(generate_Identifier(), item_code, product_name, price);
+                    qf.ShowDialog();
                 }
-            ///comment
-   
+                else
+                {
+                    MessageBox.Show("No product Available!");
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error on On-Click_Select", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+
+        }
+
+        //string variable to generate Identifier
+        public string generate_Identifier()
+        {
+              //sql query to count the numbers of rows in the temp_pay table
+                cn.Open();
+                cm = new MySqlCommand("SELECT COUNT(IDENTIFIER) + 1 AS COUNTER FROM TEMP_PAY", cn);
+                dr = cm.ExecuteReader();
+                dr.Read();
+                String identifier = dr["COUNTER"].ToString();
+                cn.Close();
+            //set the result value to the identifier variable which will be used later
+            return identifier;
+            
+            
+            
+
         }
     }
 }
