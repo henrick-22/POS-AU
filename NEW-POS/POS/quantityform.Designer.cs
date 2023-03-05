@@ -31,9 +31,9 @@
             this.buttonsave = new System.Windows.Forms.Button();
             this.btncancel = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtnum = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnsub = new System.Windows.Forms.Button();
             this.btnadd = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -71,6 +71,16 @@
             this.panel1.Size = new System.Drawing.Size(340, 51);
             this.panel1.TabIndex = 5;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::NEW_POS.Properties.Resources.icons8_food_receiver_48;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(49, 42);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -94,16 +104,6 @@
             this.txtnum.TabIndex = 1;
             this.txtnum.Text = "0";
             this.txtnum.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::NEW_POS.Properties.Resources.icons8_food_receiver_48;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(49, 42);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
             // 
             // btnsub
             // 
@@ -147,6 +147,7 @@
             this.Name = "quantityform";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "quantityform";
+            this.Load += new System.EventHandler(this.quantityform_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

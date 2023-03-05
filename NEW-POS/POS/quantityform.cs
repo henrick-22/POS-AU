@@ -19,17 +19,15 @@ namespace NEW_POS.POS
 
 
         public int a = 0;
-        internal string quantity;
-
-        //Data Table
-        DataTable dt;
+        public string quantity;
 
         MainConnection data = new MainConnection();
 
         //create variables for constructor
         String identifier, item_code, product_name, price;
+        int action;
         
-        public quantityform(String identifier, String item_code, String product_name, String price)
+        public quantityform(String identifier, String item_code, String product_name, String price, int action)
         {
             InitializeComponent();
             
@@ -38,6 +36,7 @@ namespace NEW_POS.POS
             this.item_code = item_code;
             this.product_name = product_name;
             this.price = price;
+            this.action = action;
      
         }
 
@@ -51,6 +50,24 @@ namespace NEW_POS.POS
            
         }
 
+        private void update_temp_pay()
+        {
+            try
+            {
+                data.executeSQL("UPDATE TEMP_PAY SET QUANTITY ='" + txtnum.Text + "', PRICE = '"+ computePrice(Convert.ToDouble(price))+"'  WHERE ITEM_CODE = '" + item_code + "'");
+                if(data.rowAffected > 0)
+                {
+                    MessageBox.Show("Updated Quantity!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error on Inserting on Update_Temp_Pay Function", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //this function is to insert the items to the TEMP_PAY Table
         private void insert_temp_pay()
         {
             try
@@ -59,10 +76,11 @@ namespace NEW_POS.POS
                 data.executeSQL("INSERT INTO temp_pay (IDENTIFIER, ITEM_CODE, PRODUCT_NAME, QUANTITY, PRICE)" +
                     "VALUES ('" + identifier + "', '" + item_code + "', '" + product_name + "', '" + txtnum.Text + "', '" + computePrice(Convert.ToDouble(price)) + "')");
 
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error on Inserting on Temp_Pay Table", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error on Inserting on Insert_Temp_Pay Function", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -87,7 +105,11 @@ namespace NEW_POS.POS
                 txtnum.Text = a.ToString();
             }
         }
-        
+
+        private void quantityform_Load(object sender, EventArgs e)
+        {
+            setUpdateQuantity();
+        }
 
         private void buttonsave_Click(object sender, EventArgs e)
         {
@@ -98,14 +120,48 @@ namespace NEW_POS.POS
             }
             else
             {
-                insert_temp_pay();
-                this.Close();
+                //TAKE NOTE!!! the last parameter 0 and 1 states that 0 is for new insert and 1 is for updating only!!
+                if (action == 0)
+                {
+                    insert_temp_pay();
+                    pointofsale ps = new pointofsale("", "");
+                    ps.orderlist_Output();
+                    this.Close();
+                }
+                else if(action == 1)
+                {
+                    update_temp_pay();
+                    pointofsale ps = new pointofsale("", "");
+                    ps.orderlist_Output();
+                    this.Close();
+
+                    action = 0;
+                }
+                
             }
         }
         private void btncancel_Click(object sender, EventArgs e)
         {
             quantity = null;
             this.Close();
+        }
+
+        //this function used when you update the quantity of the product, the textbox on quantity form changes by its value on temp table
+        private void setUpdateQuantity()
+        {
+            try
+            {
+                //this is for update quantity only thats why action is default to 1
+                if(action == 1)
+                {
+                    DataTable dt = data.GetData("SELECT ITEM_CODE, QUANTITY FROM TEMP_PAY WHERE ITEM_CODE ='" + item_code + "'");
+                    if (dt.Rows.Count > 0)
+                    {
+                        txtnum.Text = dt.Rows[0][1].ToString();
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error on set_Update_Quantity Function!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
     }

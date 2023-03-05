@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using POS;
 using NEW_POS.Administration_related.accounts;
 using System.Linq.Expressions;
+using System.Management.Instrumentation;
 
 namespace NEW_POS.POS
 {
@@ -46,6 +47,8 @@ namespace NEW_POS.POS
             GetData();
             cmbCategoryData();
             timer1.Start();
+            /*orderlist_Output();*/
+            orderlist_Output_Final();
         }
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -117,29 +120,29 @@ namespace NEW_POS.POS
         {
             try
             {
-                string colName = dataGridView1.Columns[e.ColumnIndex].Name;
+                string colName = dgv_Orderlist.Columns[e.ColumnIndex].Name;
                 
                 if (colName == "Delete")
                 {
 
-                    string pid = dataGridView1.Rows[0].Cells[0].Value.ToString();
+                    string pid = dgv_Orderlist.Rows[0].Cells[0].Value.ToString();
 
 
 
 
-                    int mycell = dataGridView1.CurrentCell.RowIndex;
-                    dataGridView1.Rows.RemoveAt(mycell);
+                    int mycell = dgv_Orderlist.CurrentCell.RowIndex;
+                    dgv_Orderlist.Rows.RemoveAt(mycell);
 
 
 
-                    lbltotal.Text = (from DataGridViewRow row in dataGridView1.Rows
+                    lbltotal.Text = (from DataGridViewRow row in dgv_Orderlist.Rows
                                      where row.Cells[0].FormattedValue.ToString() != string.Empty
                                      select Convert.ToInt32(row.Cells[3].FormattedValue)).Sum().ToString();
                     txtTotalCost.Text = lbltotal.Text;
 
                     //total quantity
-                    int[] qty = new int[dataGridView1.Rows.Count];
-                    qty = (from DataGridViewRow row in dataGridView1.Rows
+                    int[] qty = new int[dgv_Orderlist.Rows.Count];
+                    qty = (from DataGridViewRow row in dgv_Orderlist.Rows
                            where row.Cells[0].FormattedValue.ToString() != string.Empty
                            select Convert.ToInt32(row.Cells[2].FormattedValue)).ToArray();
                     lblcount.Text = qty.Sum().ToString();
@@ -242,7 +245,7 @@ namespace NEW_POS.POS
                     flowLayoutPanel1.Controls.Add(pic);
 
                     pic.Click += new EventHandler(onClick_Select);
-                }
+                }   
                 dr.Close();
                 cn.Close();
             }
@@ -352,9 +355,24 @@ namespace NEW_POS.POS
                     product_name = dt.Rows[0][1].ToString();
                     price = dt.Rows[0][2].ToString();
 
-                    //showing of form after getting the value from search query on database table product
-                    quantityform qf = new quantityform(generate_Identifier(), item_code, product_name, price);
-                    qf.ShowDialog();
+
+                    DataTable dtExist = data.GetData("SELECT ITEM_CODE FROM TEMP_PAY WHERE ITEM_CODE ='" +item_code + "'");
+                    if(dtExist.Rows.Count <= 0) 
+                    {
+                        //showing of form after getting the value from search query on database table product
+
+                        //TAKE NOTE!!! the last parameter 0 and 1 states that 0 is for new insert and 1 is for updating only!!
+                        quantityform qf = new quantityform(generate_Identifier(), item_code, product_name, price, 0);
+                        qf.ShowDialog();
+                    }
+                    else
+                    {
+                        //TAKE NOTE!!! the last parameter 0 and 1 states that 0 is for new insert and 1 is for updating only!!
+                        quantityform qf = new quantityform(generate_Identifier(), item_code, product_name, price, 1);
+                        qf.ShowDialog();
+                    }
+
+                    
                 }
                 else
                 {
@@ -369,19 +387,150 @@ namespace NEW_POS.POS
         //string variable to generate Identifier
         public string generate_Identifier()
         {
-              //sql query to count the numbers of rows in the temp_pay table
-                cn.Open();
-                cm = new MySqlCommand("SELECT COUNT(IDENTIFIER) + 1 AS COUNTER FROM TEMP_PAY", cn);
-                dr = cm.ExecuteReader();
-                dr.Read();
-                String identifier = dr["COUNTER"].ToString();
-                cn.Close();
-            //set the result value to the identifier variable which will be used later
+            String identifier = null;
+            try
+            {
+                //sql query to count the numbers of rows in the temp_pay table
+                DataTable dt = data.GetData("SELECT COUNT(IDENTIFIER) + 1 AS COUNTER FROM TEMP_PAY");
+
+                //set the result value to the identifier variable which will be used later
+                identifier  =  dt.Rows[0][0].ToString();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error on generating identifier", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+            //return statement of identifier
             return identifier;
+        }
+
+        public void orderlist_Output()
+        {
+            /*try
+            {
+                DataTable dt = data.GetData("SELECT ITEM_CODE AS ITEM_C, PRODUCT_NAME AS PROD_NAME, QUANTITY AS QTY, PRICE FROM TEMP_PAY");
+
+                //Add Collumn Headers
+                *//*dgv_Orderlist.Columns.Add("ITEM_CODE", "ITEM_C");
+                dgv_Orderlist.Columns.Add("PRODUCT_NAME", "PROD_NAME");
+                dgv_Orderlist.Columns.Add("QUANTITY", "QTY");
+                dgv_Orderlist.Columns.Add("PRICE", "PRICE");
+                dgv_Orderlist.Columns.Add("REMOVE", "REMOVE");*//*
+
+                //creating new button for remove
+                DataGridViewButtonColumn removeBtn = new DataGridViewButtonColumn();
+                removeBtn.UseColumnTextForButtonValue = true;
+                removeBtn.Text = "REMOVE";
+                removeBtn.Name = "REMOVE";
+
+
+                //set column count
+                dgv_Orderlist.ColumnCount = 5;
+
+                dgv_Orderlist.Columns[0].Name = "ITE_CDE";
+                dgv_Orderlist.Columns[1].Name = "PRD_NME";
+                dgv_Orderlist.Columns[2].Name = "QTY";
+                dgv_Orderlist.Columns[3].Name = "PRICE";
+                *//*dgv_Orderlist.Columns.Add(removeBtn);*/
+                /*dgv_Orderlist.Columns.Add("ITE_CDE", "ITE_CDE");
+                dgv_Orderlist.Columns.Add("PRD_NME", "PRD_NME");
+                dgv_Orderlist.Columns.Add("QTY", "QTY");
+                dgv_Orderlist.Columns.Add("PRICE", "PRICE");*//*
+
+                int i = 0;
+                while (i < dt.Rows.Count)
+                {
+                    dgv_Orderlist.Rows[i].Cells[0].Value = dt.Rows[i][0].ToString();
+                    dgv_Orderlist.Rows[i].Cells[1].Value = dt.Rows[i][1].ToString();
+                    dgv_Orderlist.Rows[i].Cells[2].Value = dt.Rows[i][2].ToString();
+                    dgv_Orderlist.Rows[i].Cells[3].Value = dt.Rows[i][3].ToString();
+                    dgv_Orderlist.Rows[i].Cells[4].Value = dgv_Orderlist.Columns.Add(removeBtn);
+                    i++;
+                }
+
+             }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error on Orderlist_Output", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            finally { cn.Close(); }*/
+        }
+
+        public void orderlist_Output_Final()
+        {
+            try
+            {
+                DataTable dt = data.GetData("SELECT ITEM_CODE AS ITEM_C, PRODUCT_NAME AS PROD_NAME, QUANTITY AS QTY, PRICE FROM TEMP_PAY");
+                dgv_Orderlist.DataSource = dt;
+
+                //creating new button for remove
+                DataGridViewButtonColumn removeBtn = new DataGridViewButtonColumn();
+                removeBtn.HeaderText = "DELETE";
+                removeBtn.Text = "REMOVE";
+                removeBtn.Name = "REMOVE";
+                removeBtn.UseColumnTextForButtonValue = true;
+
+                //to avoid duplications on column header name
+                if (dgv_Orderlist.Columns.Contains("REMOVE") == false)
+                {
+                    dgv_Orderlist.Columns.Add(removeBtn);
+                }
+                else
+                {
+                    //nothing happens
+                }
+
+                //to get totalamount even refreshed.
+                totalAmount();
+
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error on Orderlist_Output", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //syntax for remove button
+        private void dgv_Orderlist_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            var senderGrid = (DataGridView)sender;
             
-            
-            
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                //finding the item_code in datagridview to use it on deleteItem Function parameter.
+                String item = dgv_Orderlist.Rows[e.RowIndex].Cells[1].Value.ToString();
+                deleteItem(item);
+            }
 
         }
+        //function to delete the item on database
+        public void deleteItem(String item_code)
+        {
+            try
+            {
+                data.executeSQL("DELETE FROM TEMP_PAY WHERE ITEM_CODE = '" + item_code + "'");
+                orderlist_Output_Final();
+                totalAmount();
+                /*if(data.rowAffected > 0)
+                {
+                    MessageBox.Show("Item is Deleted");
+                }*/
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error on deleteItem", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        //total amount function on the orderlist
+        public void totalAmount()
+        {
+            try
+            {
+                //baka ma confuse ka sa sql query, try mo isearch yung if statement ng sql hahaha,
+                //eto yung sinasabi ko sayo na mag cocompute ka nalang thru sql hahahahaha
+                DataTable dt = data.GetData("SELECT IF(SUM(PRICE) > 0, SUM(PRICE), 0) AS TOTAL FROM TEMP_PAY");
+                lbltotal.Text = dt.Rows[0][0].ToString();
+                
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error on deleteItem", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        
+
     }
 }
