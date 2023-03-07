@@ -27,6 +27,7 @@ namespace NEW_POS.POS
         string transtype, action;
         string username;
         string usertype;
+        DataTable dt;
         quantityform qf;
         MySqlConnection cn;
         MySqlCommand cm;
@@ -49,6 +50,10 @@ namespace NEW_POS.POS
             timer1.Start();
             /*orderlist_Output();*/
             orderlist_Output_Final();
+            refresh();
+            totalAmount();
+            totalcount();
+
         }
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -116,94 +121,51 @@ namespace NEW_POS.POS
 
 
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                string colName = dgv_Orderlist.Columns[e.ColumnIndex].Name;
+        //private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    try
+        //    {
+        //        string colName = dgv_Orderlist.Columns[e.ColumnIndex].Name;
                 
-                if (colName == "Delete")
-                {
+        //        if (colName == "Delete")
+        //        {
 
-                    string pid = dgv_Orderlist.Rows[0].Cells[0].Value.ToString();
-
-
-
-
-                    int mycell = dgv_Orderlist.CurrentCell.RowIndex;
-                    dgv_Orderlist.Rows.RemoveAt(mycell);
+        //            string pid = dgv_Orderlist.Rows[0].Cells[0].Value.ToString();
 
 
 
-                    lbltotal.Text = (from DataGridViewRow row in dgv_Orderlist.Rows
-                                     where row.Cells[0].FormattedValue.ToString() != string.Empty
-                                     select Convert.ToInt32(row.Cells[3].FormattedValue)).Sum().ToString();
-                    txtTotalCost.Text = lbltotal.Text;
 
-                    //total quantity
-                    int[] qty = new int[dgv_Orderlist.Rows.Count];
-                    qty = (from DataGridViewRow row in dgv_Orderlist.Rows
-                           where row.Cells[0].FormattedValue.ToString() != string.Empty
-                           select Convert.ToInt32(row.Cells[2].FormattedValue)).ToArray();
-                    lblcount.Text = qty.Sum().ToString();
-                }
+        //            int mycell = dgv_Orderlist.CurrentCell.RowIndex;
+        //            dgv_Orderlist.Rows.RemoveAt(mycell);
+
+
+
+        //            lbltotal.Text = (from DataGridViewRow row in dgv_Orderlist.Rows
+        //                             where row.Cells[0].FormattedValue.ToString() != string.Empty
+        //                             select Convert.ToInt32(row.Cells[3].FormattedValue)).Sum().ToString();
+        //            txtTotalCost.Text = lbltotal.Text;
+
+        //            //total quantity
+        //            int[] qty = new int[dgv_Orderlist.Rows.Count];
+        //            qty = (from DataGridViewRow row in dgv_Orderlist.Rows
+        //                   where row.Cells[0].FormattedValue.ToString() != string.Empty
+        //                   select Convert.ToInt32(row.Cells[2].FormattedValue)).ToArray();
+        //            lblcount.Text = qty.Sum().ToString();
+        //        }
                 
             
-            }
+        //    }
 
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
         private void btnPayment_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    //////////// payment validation
-
-            //    if (Convert.ToDouble(lbltotal.Text) <= 0)
-            //    {
-            //        MessageBox.Show("No Items has been found!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    }
-            //    else if (string.IsNullOrEmpty(txtdiscount.Text))
-            //    {
-            //        txtdiscount.Text = "0";
-            //    }
-            //    else
-            //    {
-            //        ////////////////////////////////////////// - Transaction Type
-                    
-            //        //////////////////////////////////////////////////////////////////
-            //        cn.Open();
-            //        cm = new MySqlCommand("select * from tblproduct  ", cn);
-            //        dr = cm.ExecuteReader();
-            //        dr.Read();
-
-            //        payments pc = new payments(lblcount.Text, txtdiscount.Text, txtTotalCost.Text, this, username, fm, action) { TopLevel = false, TopMost = true, Dock = DockStyle.Fill };
-
-            //        for (int a = 0; a < dataGridView1.Rows.Count; a++)
-            //        {
-            //            int n = pc.dgv2.Rows.Add();
-            //            a = n;
-            //            pc.dgv2.Rows[n].Cells[0].Value = dataGridView1.Rows[n].Cells[0].Value.ToString();
-            //            pc.dgv2.Rows[n].Cells[1].Value = dataGridView1.Rows[n].Cells[1].Value.ToString();
-            //            pc.dgv2.Rows[n].Cells[2].Value = dataGridView1.Rows[n].Cells[2].Value.ToString();
-            //            pc.dgv2.Rows[n].Cells[3].Value = dataGridView1.Rows[n].Cells[3].Value.ToString();
-            //        }
-
-                    
-            //        fm.pContainer.Controls.Add(pc);
-            //        pc.BringToFront();
-            //        pc.Show();
-            //        cn.Close();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            payments pay = new payments("", "", "", "", this,username);
+            pay.ShowDialog();
         }
         public int row = -1;
 
@@ -348,6 +310,7 @@ namespace NEW_POS.POS
                 String tag = ((PictureBox)sender).Tag.ToString();
 
                 DataTable dt = data.GetData("SELECT * FROM PRODUCTS WHERE PRODUCT_ID LIKE '" + tag + "'");
+                
 
                 if (dt.Rows.Count > 0)
                 {
@@ -364,12 +327,19 @@ namespace NEW_POS.POS
                         //TAKE NOTE!!! the last parameter 0 and 1 states that 0 is for new insert and 1 is for updating only!!
                         quantityform qf = new quantityform(generate_Identifier(), item_code, product_name, price, 0);
                         qf.ShowDialog();
+                        totalAmount();
+                        totalcount();
+                        
                     }
                     else
                     {
                         //TAKE NOTE!!! the last parameter 0 and 1 states that 0 is for new insert and 1 is for updating only!!
                         quantityform qf = new quantityform(generate_Identifier(), item_code, product_name, price, 1);
                         qf.ShowDialog();
+                        pointofsale pos = (pointofsale)Application.OpenForms["pointofsale"];
+                        pos.refresh();
+                        totalAmount();
+                        totalcount();
                     }
 
                     
@@ -461,12 +431,16 @@ namespace NEW_POS.POS
                 //creating new button for remove
                 DataGridViewButtonColumn removeBtn = new DataGridViewButtonColumn();
                 removeBtn.HeaderText = "DELETE";
-                removeBtn.Text = "REMOVE";
-                removeBtn.Name = "REMOVE";
+                removeBtn.Text = "X";
+                removeBtn.Name = "X";
+                removeBtn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                removeBtn.Width = 55;
+                
+
                 removeBtn.UseColumnTextForButtonValue = true;
 
                 //to avoid duplications on column header name
-                if (dgv_Orderlist.Columns.Contains("REMOVE") == false)
+                if (dgv_Orderlist.Columns.Contains("X") == false)
                 {
                     dgv_Orderlist.Columns.Add(removeBtn);
                 }
@@ -474,10 +448,11 @@ namespace NEW_POS.POS
                 {
                     //nothing happens
                 }
-
+                pointofsale pos = (pointofsale)Application.OpenForms["pointofsale"];
+                pos.refresh();
                 //to get totalamount even refreshed.
                 totalAmount();
-
+                totalcount();
 
             }
             catch(Exception ex)
@@ -508,6 +483,7 @@ namespace NEW_POS.POS
                 data.executeSQL("DELETE FROM TEMP_PAY WHERE ITEM_CODE = '" + item_code + "'");
                 orderlist_Output_Final();
                 totalAmount();
+                totalcount();
                 /*if(data.rowAffected > 0)
                 {
                     MessageBox.Show("Item is Deleted");
@@ -515,8 +491,38 @@ namespace NEW_POS.POS
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error on deleteItem", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
+        private double discount, total, result;
+
+        private void btnexit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            
+        }
+
+        private void txtConfirm_Click(object sender, EventArgs e)
+        {
+            DataTable dt = data.GetData("SELECT IF(SUM(PRICE) > 0, SUM(PRICE), 0) AS TOTAL FROM TEMP_PAY");
+            lbltotal.Text = dt.Rows[0][0].ToString();
+            txtTotalCost.Text = dt.Rows[0][0].ToString();
+            totalamt = Convert.ToDouble(dt.Rows[0][0].ToString());
+            discount = Convert.ToDouble(txtdiscount.Text);
+            result = totalamt - (totalamt * discount / 100);
+            txtTotalCost.Text = result.ToString();
+            pointofsale pos = (pointofsale)Application.OpenForms["pointofsale"];
+            pos.refresh();
+        }
+
+        //private void txtConfirm_Click(object sender, EventArgs e)
+        //{
+        //    lbltotal.Text = total.ToString();
+        //    txtdiscount.Text = discount.ToString();
+        //    double     
+        //    double result = total(total - discount / 100);
+        //}
+
 
         //total amount function on the orderlist
+        public double totalamt;
         public void totalAmount()
         {
             try
@@ -525,12 +531,41 @@ namespace NEW_POS.POS
                 //eto yung sinasabi ko sayo na mag cocompute ka nalang thru sql hahahahaha
                 DataTable dt = data.GetData("SELECT IF(SUM(PRICE) > 0, SUM(PRICE), 0) AS TOTAL FROM TEMP_PAY");
                 lbltotal.Text = dt.Rows[0][0].ToString();
+                txtTotalCost.Text = dt.Rows[0][0].ToString();
                 
+
+
+                //input
+
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error on deleteItem", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+        public void totalcount()
+        {
+            try
+            {
+                //baka ma confuse ka sa sql query, try mo isearch yung if statement ng sql hahaha,
+                //eto yung sinasabi ko sayo na mag cocompute ka nalang thru sql hahahahaha
+                DataTable dt = data.GetData("SELECT IF(SUM(QUANTITY) > 0, SUM(QUANTITY), 0) AS TOTAL FROM TEMP_PAY");
+                lblcount.Text = dt.Rows[0][0].ToString();
+                
+
+                //input
+
+
+
+
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error on deleteItem", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
-        
+        public void refresh()
+        {
+            dt = new DataTable();
+            adp = new MySqlDataAdapter("select ITEM_CODE,PRODUCT_NAME,QUANTITY,PRICE from temp_pay", cn);
+            adp.Fill(dt);
+            dgv_Orderlist.DataSource = dt;
+        }
 
     }
 }

@@ -33,8 +33,21 @@ namespace NEW_POS.POS
         
 
         string qty;
+
+        private void btnexit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void payments_Load(object sender, EventArgs e)
+        {
+            txtTotalItems.Text = ps.lblcount.Text;
+            txtDiscounts.Text = ps.txtdiscount.Text;
+            txtTotalPaying.Text = ps.txtTotalCost.Text;
+        }
+
         int decrement1;
-        public payments(string totalItems, string discount, string totalCost, pointofsale ps, String username, formmain fm, String action)
+        public payments(string totalItems, string discount, string totalCost, string action,pointofsale ps ,string username)
         {
             InitializeComponent();
             //
@@ -45,11 +58,15 @@ namespace NEW_POS.POS
             this.discount = discount;
             this.totalCost = totalCost;
             
-            this.ps = ps;
             
-            this.username = username;
-            this.fm = fm;
+            
+            
+            
             this.action = action;
+            this.ps = ps;
+            this.username = username;
+
+            
             getValue();
             
         }
@@ -60,10 +77,7 @@ namespace NEW_POS.POS
             txtTotalCost.Text = totalCost.ToString();
         }
 
-        private void btnexit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+
         private void btnSubmit_Click(object sender, EventArgs e)
         {
 

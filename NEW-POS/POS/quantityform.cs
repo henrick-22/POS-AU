@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using NEW_POS.Administration_related.accounts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -113,6 +114,7 @@ namespace NEW_POS.POS
 
         private void buttonsave_Click(object sender, EventArgs e)
         {
+            
             //validation of quantity if null or 0 value;
             if (String.IsNullOrEmpty(txtnum.Text) || Convert.ToInt32(txtnum.Text) <= 0)
             {
@@ -125,6 +127,8 @@ namespace NEW_POS.POS
                 {
                     insert_temp_pay();
                     pointofsale ps = new pointofsale("", "");
+                    pointofsale pos = (pointofsale)Application.OpenForms["pointofsale"];
+                    pos.refresh();
                     ps.orderlist_Output();
                     this.Close();
                 }
@@ -132,6 +136,8 @@ namespace NEW_POS.POS
                 {
                     update_temp_pay();
                     pointofsale ps = new pointofsale("", "");
+                    pointofsale pos = (pointofsale)Application.OpenForms["pointofsale"];
+                    pos.refresh();
                     ps.orderlist_Output();
                     this.Close();
 

@@ -51,10 +51,30 @@ namespace POS
             //pointofsale pos = new pointofsale(username,usertype);
             //pos.Show();
             //this.Hide();
-            pointofsale pos = new pointofsale(lblusername.Text, lblusertype.Text) { TopLevel = false, TopMost = true, Dock = DockStyle.Fill };
-            this.pContainer.Controls.Add(pos);
-            pos.BringToFront();
-            pos.Show();
+            try
+            {
+                DialogResult answer = MessageBox.Show("Are you sure want delete this data?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (answer == DialogResult.Yes)
+                {
+                    cn.Open();
+                    cmd = new MySqlCommand("DELETE FROM temp_pay", cn);
+                    cmd.ExecuteNonQuery();
+                    cn.Close();
+                    pointofsale pos = new pointofsale(username, usertype);
+                    pos.Show();
+                    this.Hide();
+                }
+                else if (answer == DialogResult.No)
+                {
+                    pointofsale pos = new pointofsale(username, usertype);
+                    pos.Show();
+                    this.Hide();
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error on btnpos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnmin_Click(object sender, EventArgs e)

@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\NEW-POS",
+    "\\NEW-POS\\Administration-related",
     "\\NEW-POS\\POS"
   ],
-  "SelectedNode": "\\NEW-POS\\POS\\payments.cs",
+  "SelectedNode": "\\NEW-POS.sln",
   "PreviewInSolutionExplorer": false
 }
