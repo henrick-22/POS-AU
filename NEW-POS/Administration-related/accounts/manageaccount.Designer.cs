@@ -63,6 +63,9 @@
             // 
             this.dgvProducts.AllowUserToAddRows = false;
             this.dgvProducts.AllowUserToDeleteRows = false;
+            this.dgvProducts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -227,6 +230,7 @@
             // 
             // btnadd
             // 
+            this.btnadd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnadd.Location = new System.Drawing.Point(77, 478);
             this.btnadd.Name = "btnadd";
             this.btnadd.Size = new System.Drawing.Size(162, 46);
@@ -264,6 +268,7 @@
             // 
             // btnupdate
             // 
+            this.btnupdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnupdate.Location = new System.Drawing.Point(420, 478);
             this.btnupdate.Name = "btnupdate";
             this.btnupdate.Size = new System.Drawing.Size(162, 46);
@@ -278,6 +283,7 @@
             // 
             // btndelete
             // 
+            this.btndelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btndelete.Location = new System.Drawing.Point(746, 478);
             this.btndelete.Name = "btndelete";
             this.btndelete.Size = new System.Drawing.Size(162, 46);

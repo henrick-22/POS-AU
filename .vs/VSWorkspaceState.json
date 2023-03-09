@@ -3,8 +3,9 @@
     "",
     "\\NEW-POS",
     "\\NEW-POS\\Administration-related",
+    "\\NEW-POS\\Administration-related\\accounts",
     "\\NEW-POS\\POS"
   ],
-  "SelectedNode": "\\NEW-POS.sln",
+  "SelectedNode": "\\NEW-POS\\Administration-related\\accounts\\addaccount.cs",
   "PreviewInSolutionExplorer": false
 }

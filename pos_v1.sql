@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 10:09 AM
+-- Generation Time: Mar 07, 2023 at 01:17 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -153,6 +153,20 @@ INSERT INTO `settings` (`SETTINGS_FORM`, `SETTINGS_CATEGORY`) VALUES
 ('POScategory', 'COFFEE'),
 ('POScategory', 'REFRESHER'),
 ('POScategory', 'ADD ONS');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `temp_pay`
+--
+
+CREATE TABLE `temp_pay` (
+  `IDENTIFIER` varchar(50) NOT NULL,
+  `ITEM_CODE` varchar(50) NOT NULL,
+  `PRODUCT_NAME` varchar(50) NOT NULL,
+  `QUANTITY` varchar(50) NOT NULL,
+  `PRICE` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 

@@ -34,6 +34,7 @@ namespace NEW_POS.Products
         string username;
         string usertype;
         string selectedUser;
+        string PRODUCT_ID;  
         public formproducts(string username,string usertype)
         {
             InitializeComponent();
@@ -42,8 +43,22 @@ namespace NEW_POS.Products
             con.ConnectionString = data.getConnection();
             this.username = username;
             this.usertype = usertype;
-            
         }
+
+        public void loadTheme()
+        {
+            foreach (Control btns in this.Controls)
+            {
+                if (btns.GetType() == typeof(Button))
+                {
+                    Button btn = (Button)btns;
+                    btn.BackColor = themeColor.PrimaryColor;
+                    btn.ForeColor = Color.White;
+                    btn.FlatAppearance.BorderColor = themeColor.SecondaryColor;
+                }
+            }
+        }
+
         public void autosize()
         {
             formOriginalSize = this.Size;
@@ -88,9 +103,10 @@ namespace NEW_POS.Products
 
         private void formproducts_Load(object sender, EventArgs e)
         {
-        //    DatagridviewLoad();
-          //  autosize();
+            //DatagridviewLoad();
+            //autosize();
             showImage();
+            loadTheme();
         }
         private void Products_Resize(object sender, EventArgs e)
         {
@@ -220,5 +236,46 @@ namespace NEW_POS.Products
                 MessageBox.Show(ex.Message, "Error on Delete Button", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+        private void btnavailable_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string selectedUser = dgvProducts.Rows[row].Cells[0].Value.ToString();
+                availabilityForm avl = new availabilityForm(this, "Update", username);
+                con.Open();
+                cmd = new MySqlCommand("select PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DESCRIPTION, PRODUCT_STATUS, PRODUCT_CATEGORY, PRODUCT_IMAGE, PRODUCT_AVAILABILITY from products " +
+                    "WHERE PRODUCT_ID LIKE '" + selectedUser + "' ", con);
+                cmd.ExecuteNonQuery();
+
+                avl.txtproductid.Text = dgvProducts.Rows[row].Cells[0].Value.ToString();
+                avl.cmbavailability.Text = dgvProducts.Rows[row].Cells[6].Value.ToString();
+                
+                con.Close();
+                avl.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error on Update button", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void txtsearch_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                dt = new DataTable();
+                adpt = new MySqlDataAdapter("select PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DESCRIPTION, PRODUCT_STATUS, PRODUCT_CATEGORY, PRODUCT_IMAGE, PRODUCT_AVAILABILITY " +
+                    "FROM products WHERE PRODUCT_ID LIKE '%" + txtsearch.Text + "%' OR PRODUCT_NAME LIKE '%" + txtsearch.Text + "%' ORDER BY PRODUCT_ID", con);
+                adpt.Fill(dt);
+                dgvProducts.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error on search by ID or Name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
     }
 }

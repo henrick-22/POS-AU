@@ -25,6 +25,7 @@ namespace NEW_POS.category_settings
         private void formcategory_Load(object sender, EventArgs e)
         {
             loadform();
+            loadTheme();
         }
         public formcategory(string username)
         {
@@ -33,6 +34,21 @@ namespace NEW_POS.category_settings
             con.ConnectionString = data.getConnection();
             this.username = username;
         }
+
+        public void loadTheme()
+        {
+            foreach (Control btns in this.Controls)
+            {
+                if (btns.GetType() == typeof(Button))
+                {
+                    Button btn = (Button)btns;
+                    btn.BackColor = themeColor.PrimaryColor;
+                    btn.ForeColor = Color.White;
+                    btn.FlatAppearance.BorderColor = themeColor.SecondaryColor;
+                }
+            }
+        }
+
         private void loadform()
         {
             try

@@ -41,8 +41,6 @@ namespace NEW_POS.POS
         formmain fm;
         private string v;
 
-        
-
         private void pointofsale_Load(object sender, EventArgs e)
         {
             GetData();
@@ -53,7 +51,31 @@ namespace NEW_POS.POS
             refresh();
             totalAmount();
             totalcount();
+            loadTheme();
+            if (usertype == "MANAGER")
+            {
+                
+                btnexit.Visible = false;
+            }
+            else if (usertype == "USER")
+            {
+                btnexit.Visible = true;
+            }
 
+        }
+
+        public void loadTheme()
+        {
+            foreach (Control btns in this.Controls)
+            {
+                if (btns.GetType() == typeof(Button))
+                {
+                    Button btn = (Button)btns;
+                    btn.BackColor = themeColor.PrimaryColor;
+                    btn.ForeColor = Color.White;
+                    btn.FlatAppearance.BorderColor = themeColor.SecondaryColor;
+                }
+            }
         }
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,7 +198,7 @@ namespace NEW_POS.POS
             {
                 flowLayoutPanel1.Controls.Clear();
                 cn.Open();
-                cm = new MySqlCommand("Select PRODUCT_IMAGE, PRODUCT_DESCRIPTION, PRODUCT_ID, PRODUCT_NAME,PRODUCT_PRICE from products order by PRODUCT_NAME", cn);
+                cm = new MySqlCommand("Select PRODUCT_IMAGE, PRODUCT_DESCRIPTION, PRODUCT_ID, PRODUCT_NAME,PRODUCT_PRICE from products WHERE PRODUCT_AVAILABILITY = 'AVAILABLE' order by PRODUCT_NAME", cn);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
@@ -495,8 +517,19 @@ namespace NEW_POS.POS
 
         private void btnexit_Click(object sender, EventArgs e)
         {
-            this.Close();
-            
+            Application.Exit();
+        }
+
+
+        private void txtdiscount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void btnpay2_Click(object sender, EventArgs e)
+        {
+            payments pay = new payments("", "", "", "", this, username);
+            pay.ShowDialog();
         }
 
         private void txtConfirm_Click(object sender, EventArgs e)

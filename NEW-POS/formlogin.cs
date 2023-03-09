@@ -26,11 +26,58 @@ namespace NEW_POS
 
         DateTime date = DateTime.Now;
 
+        private void validateusername()
+        {
+            cmd = new MySqlCommand("select * from account where ACCOUNT_USERNAME = '" + txtusername.Text + "'", cn);
+
+            if (txtusername.Text == "")
+            {
+                errorProvider1.SetError(txtusername, "Username is empty");
+            }
+            else if (txtusername.TextLength < 4)
+            {
+                errorProvider1.SetError(txtusername, "Username should be atleast 6 characters");
+            }
+            else
+            {
+                errorProvider1.SetError(txtusername, "");
+            }
+        }
+        private void validatepassword()
+        {
+            cmd = new MySqlCommand("select * from account where ACCOUNT_PASSWORD = '" + txtpassword.Text + "'", cn);
+
+            if (txtpassword.Text == "")
+            {
+                errorProvider1.SetError(txtpassword, "Password is empty");
+            }
+            else if (txtpassword.TextLength < 4)
+            {
+                errorProvider1.SetError(txtpassword, "Password should be atleast 4 characters");
+            }
+            else
+            {
+                errorProvider1.SetError(txtpassword, "");
+            }
+        }
+        private void countErrors()
+        {
+            errorCount = 0;
+            foreach (Control c in errorProvider1.ContainerControl.Controls)
+            {
+                if (errorProvider1.GetError(c) != "")
+                {
+                    errorCount++;
+                }
+            }
+        }
         private void btnlogin_Click(object sender, EventArgs e)
         {
             try
             {
-                
+                validateusername();
+                validatepassword();
+                countErrors();
                 if (errorCount == 0)
                 {
                     cn.Open();
@@ -76,7 +123,7 @@ namespace NEW_POS
                 }
                 else
                 {
-                    MessageBox.Show("Please Enter Your Credentials", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                  
                 }
 
 

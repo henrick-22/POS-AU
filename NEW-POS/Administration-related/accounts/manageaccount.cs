@@ -40,8 +40,22 @@ namespace NEW_POS.Administration_related.accounts
             this.username = username;
             this.usertype = usertype;
             this.fm = fm;
-
         }
+
+        public void loadTheme()
+        {
+            foreach (Control btns in this.Controls)
+            {
+                if (btns.GetType() == typeof(Button))
+                {
+                    Button btn = (Button)btns;
+                    btn.BackColor = themeColor.PrimaryColor;
+                    btn.ForeColor = Color.White;
+                    btn.FlatAppearance.BorderColor = themeColor.SecondaryColor;
+                }
+            }
+        }
+
         public void autosize()
         {
             formOriginalSize = this.Size;
@@ -97,6 +111,7 @@ namespace NEW_POS.Administration_related.accounts
             {
                 MessageBox.Show(ex.Message, "Error on Form Load", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            loadTheme();
         }
         public void incrementrefresh()
         {

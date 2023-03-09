@@ -43,6 +43,7 @@
             // 
             // dgvCategory
             // 
+            this.dgvCategory.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dgvCategory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
@@ -100,12 +101,13 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(59, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(256, 32);
+            this.label1.Size = new System.Drawing.Size(255, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "CATEGORY SETTINGS";
             // 
             // btndelete
             // 
+            this.btndelete.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btndelete.Location = new System.Drawing.Point(318, 432);
             this.btndelete.Name = "btndelete";
             this.btndelete.Size = new System.Drawing.Size(119, 46);
@@ -122,6 +124,7 @@
             // 
             // btnadd
             // 
+            this.btnadd.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnadd.Location = new System.Drawing.Point(85, 432);
             this.btnadd.Name = "btnadd";
             this.btnadd.Size = new System.Drawing.Size(122, 46);
